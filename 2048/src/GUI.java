@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +25,7 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 	private JLabel title, points_title, points, high_score_label, high_score_title;
 	private JButton newG;
 	private JComboBox size;
+	private JPanel panel;
 	//private Insets insets;
 
 	private Board b;
@@ -49,6 +49,8 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 			e.printStackTrace();
 		}
 
+		panel = new JPanel();
+		
 		save = new SaveGames(this);
 
 		File f = new File("games2048.txt");
@@ -104,7 +106,7 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 		title.setForeground(Color.DARK_GRAY);
 		title.setFont(t);
 		title.setBounds(5, LABEL / 4, 120, 40);
-		add(title);
+		panel.add(title);
 /*
 		Font w = new Font("SansSerif", Font.BOLD, 16);
 
@@ -157,6 +159,7 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 		//window.setVisible(true);
 		 * 
 		 */
+		add(panel);
 	}
 
 	public void actionPerformed(ActionEvent e) {

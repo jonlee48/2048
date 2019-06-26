@@ -11,17 +11,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.event.KeyEvent;
+
+import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.util.Random;
 
 //Applet version
-public class GUI extends JPanel implements ActionListener, KeyListener {
+public class GUI extends JApplet implements ActionListener, KeyListener {
 
-	private JFrame window;
+	//private JFrame window;
 	private JLabel title, points_title, points, high_score_label, high_score_title;
 	private JButton newG;
 	private JComboBox size;
@@ -40,7 +41,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 	final private int[] GREEN = { 228, 224, 177, 149, 124, 94, 207, 204, 200, 197, 194 };
 	final private int[] BLUE = { 218, 200, 121, 99, 95, 59, 114, 97, 80, 63, 46 };
 
-	public GUI() throws IOException {
+	public void init() {
 
 		try {
 			javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getCrossPlatformLookAndFeelClassName());
@@ -55,32 +56,47 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 		if (!f.exists()) {
 			// no file procedure
 			save.newGames();
-			save.writeFiles();
+			try {
+				save.writeFiles();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
-		save.readFiles();
+		try {
+			save.readFiles();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
+		/*
 		window = new JFrame("2048");
 		window.pack(); // needed to get insets for title bar height
 		insets = window.getInsets();
 		window.setSize(CELLSIZE * SIZE, CELLSIZE * SIZE + LABEL + insets.top); // includes title bar height
 		window.setLocationRelativeTo(null);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		*/
 		// upon start, open saved file
-		save.readFiles();
-		b = save.getGame(2);
+		try {
+			save.readFiles();
+			b = save.getGame(2);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// set current score
 		score = save.getSavedScore(4);
 		b.setScore(score);
 		// set saved high score
 		highScore = save.getSavedHighScore(4);
 
-		window.addKeyListener(this);
+		addKeyListener(this);
 
-		this.setLayout(null);
-		this.setBackground(Color.WHITE);
-		window.getContentPane().add(this);
+		
+		//this.setLayout(null);
+		setBackground(Color.GREEN);
+		//add(this);
 
 		title = new JLabel("2048");
 		Font t = new Font("SansSerif", Font.BOLD, 40);
@@ -136,8 +152,8 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 		size.setFocusable(false);
 		add(size);
 
-		window.setResizable(true);
-		window.setVisible(true);
+		//window.setResizable(true);
+		//window.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -201,16 +217,17 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 				e1.printStackTrace();
 			}
 			// change window size
+			/*
 			if (SIZE >= 4)
 				window.setSize(CELLSIZE * SIZE, CELLSIZE * SIZE + LABEL + insets.top);
 			else
 				window.setSize(CELLSIZE * 4, CELLSIZE * SIZE + LABEL + insets.top);
+				*/
 			repaint();
 		}
 	}
 
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+	public void paint(Graphics g) { //paintcomponent to paint
 
 		g.setColor(new Color(238, 228, 218, 200));
 		if (SIZE < 4)
@@ -327,8 +344,10 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 
 	}
 
+	/*
 	public static void main(String[] args) throws IOException {
 		new GUI();
 
 	}
+	*/
 }

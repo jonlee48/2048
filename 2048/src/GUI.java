@@ -16,7 +16,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.util.Random;
 
+//Applet version
 public class GUI extends JPanel implements ActionListener, KeyListener {
 
 	private JFrame window;

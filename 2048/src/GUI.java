@@ -325,8 +325,12 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	public static void main(String[] args) throws IOException {
-		new GUI();
+	public static void main(String[] args) {
+		try {
+			new GUI();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 }

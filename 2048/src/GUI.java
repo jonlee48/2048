@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,23 +11,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.event.KeyEvent;
-
-import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-//Applet version
-public class GUI extends JApplet implements ActionListener, KeyListener {
+public class GUI extends JPanel implements ActionListener, KeyListener {
 
-	//private JFrame window;
+	private JFrame window;
 	private JLabel title, points_title, points, high_score_label, high_score_title;
 	private JButton newG;
 	private JComboBox size;
-	private JPanel panel;
-	//private Insets insets;
+	private Insets insets;
 
 	private Board b;
 	private SaveGames save;
@@ -41,7 +38,7 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 	final private int[] GREEN = { 228, 224, 177, 149, 124, 94, 207, 204, 200, 197, 194 };
 	final private int[] BLUE = { 218, 200, 121, 99, 95, 59, 114, 97, 80, 63, 46 };
 
-	public void init() {
+	public GUI() throws IOException {
 
 		try {
 			javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getCrossPlatformLookAndFeelClassName());
@@ -49,8 +46,6 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 			e.printStackTrace();
 		}
 
-		panel = new JPanel();
-		
 		save = new SaveGames(this);
 
 		File f = new File("games2048.txt");
@@ -58,56 +53,40 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 		if (!f.exists()) {
 			// no file procedure
 			save.newGames();
-			try {
-				save.writeFiles();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			save.writeFiles();
 		}
 
-		try {
-			save.readFiles();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		save.readFiles();
 
-		/*
 		window = new JFrame("2048");
 		window.pack(); // needed to get insets for title bar height
 		insets = window.getInsets();
 		window.setSize(CELLSIZE * SIZE, CELLSIZE * SIZE + LABEL + insets.top); // includes title bar height
 		window.setLocationRelativeTo(null);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		*/
+
 		// upon start, open saved file
-		try {
-			save.readFiles();
-			b = save.getGame(2);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		save.readFiles();
+		b = save.getGame(2);
 		// set current score
 		score = save.getSavedScore(4);
 		b.setScore(score);
 		// set saved high score
 		highScore = save.getSavedHighScore(4);
 
-		addKeyListener(this);
-		setFocusable(true); //allows focus on KeyListener
-		
-		//this.setLayout(null);
-		//setBackground(Color.GREEN);
-		//add(this);
+		window.addKeyListener(this);
 
+		this.setLayout(null);
+		this.setBackground(Color.WHITE);
+		window.getContentPane().add(this);
 
 		title = new JLabel("2048");
 		Font t = new Font("SansSerif", Font.BOLD, 40);
 		title.setForeground(Color.DARK_GRAY);
 		title.setFont(t);
 		title.setBounds(5, LABEL / 4, 120, 40);
-		panel.add(title);
-/*
+		add(title);
+
 		Font w = new Font("SansSerif", Font.BOLD, 16);
 
 		points_title = new JLabel("Score: ");
@@ -155,11 +134,8 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 		size.setFocusable(false);
 		add(size);
 
-		//window.setResizable(true);
-		//window.setVisible(true);
-		 * 
-		 */
-		add(panel);
+		window.setResizable(true);
+		window.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -223,25 +199,25 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 				e1.printStackTrace();
 			}
 			// change window size
-			/*
 			if (SIZE >= 4)
 				window.setSize(CELLSIZE * SIZE, CELLSIZE * SIZE + LABEL + insets.top);
 			else
 				window.setSize(CELLSIZE * 4, CELLSIZE * SIZE + LABEL + insets.top);
-				*/
 			repaint();
 		}
 	}
 
-	public void paint(Graphics g) { //paintcomponent to paint
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 
 		g.setColor(new Color(238, 228, 218, 200));
 		if (SIZE < 4)
-			g.fillRect(0, 0, CELLSIZE * 4, CELLSIZE * SIZE + LABEL);// + insets.top); // paint background color
+			g.fillRect(0, 0, CELLSIZE * 4, CELLSIZE * SIZE + LABEL + insets.top); // paint background color
 		else
-			g.fillRect(0, 0, CELLSIZE * SIZE, CELLSIZE * SIZE + LABEL);// + insets.top); // paint background color
+			g.fillRect(0, 0, CELLSIZE * SIZE, CELLSIZE * SIZE + LABEL + insets.top); // paint background color
 		for (int r = 0; r < SIZE; r++) {
 			for (int c = 0; c < SIZE; c++) {
+
 				Color color;
 				int num = b.getBoard()[r][c];
 				String str = num + "";
@@ -274,8 +250,6 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 			}
 		}
 		// UPDATE SCORE
-/*
-		*temporarialy disable
 		score = b.getScore();
 		points.setText(score + "");
 		if (score > highScore)
@@ -287,14 +261,14 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 			g.setColor(Color.DARK_GRAY);
 			if (SIZE < 4)
 				drawCenteredString(g, "Game Over!",
-						new Rectangle(0, 0, CELLSIZE * 4, CELLSIZE * SIZE + LABEL),
-						new Font("SansSerif", Font.BOLD, 50)); // removed + insets.top
+						new Rectangle(0, 0, CELLSIZE * 4, CELLSIZE * SIZE + LABEL + insets.top),
+						new Font("SansSerif", Font.BOLD, 50));
 			else
 				drawCenteredString(g, "Game Over!",
-						new Rectangle(0, 0, SIZE * CELLSIZE, SIZE * CELLSIZE + 2 * (LABEL)), // removed + insets.top
-						new Font("SansSerif", Font.BOLD, 50));	
+						new Rectangle(0, 0, SIZE * CELLSIZE, SIZE * CELLSIZE + 2 * (LABEL + insets.top)),
+						new Font("SansSerif", Font.BOLD, 50));
 		}
-*/
+
 	}
 
 	public void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
@@ -339,33 +313,24 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-<<<<<<< HEAD
 
-=======
->>>>>>> refs/heads/2048applet
 
 	}
 
 	public void keyTyped(KeyEvent e) {
+
 	}
 
 	public void keyReleased(KeyEvent e) {
 
 	}
 
-<<<<<<< HEAD
 	public static void main(String[] args) {
 		try {
 			new GUI();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-=======
-	/*
-	public static void main(String[] args) throws IOException {
-		new GUI();
->>>>>>> refs/heads/2048applet
 
 	}
-	*/
 }

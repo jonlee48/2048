@@ -313,7 +313,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		// score = b.getScore();
+
 
 	}
 

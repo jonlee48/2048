@@ -11,3 +11,4 @@ public class AppletMain extends JApplet{
 		new GUI();
 	}
 }
+*/

@@ -92,21 +92,20 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 		highScore = save.getSavedHighScore(4);
 
 		addKeyListener(this);
-
+		setFocusable(true); //allows focus on KeyListener
 		
 		//this.setLayout(null);
 		//setBackground(Color.GREEN);
 		//add(this);
 
-		/*
-		* no labels for now
+
 		title = new JLabel("2048");
 		Font t = new Font("SansSerif", Font.BOLD, 40);
 		title.setForeground(Color.DARK_GRAY);
 		title.setFont(t);
 		title.setBounds(5, LABEL / 4, 120, 40);
 		add(title);
-
+/*
 		Font w = new Font("SansSerif", Font.BOLD, 16);
 
 		points_title = new JLabel("Score: ");
@@ -272,6 +271,8 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 			}
 		}
 		// UPDATE SCORE
+/*
+		*temporarialy disable
 		score = b.getScore();
 		points.setText(score + "");
 		if (score > highScore)
@@ -288,9 +289,9 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 			else
 				drawCenteredString(g, "Game Over!",
 						new Rectangle(0, 0, SIZE * CELLSIZE, SIZE * CELLSIZE + 2 * (LABEL)), // removed + insets.top
-						new Font("SansSerif", Font.BOLD, 50));
+						new Font("SansSerif", Font.BOLD, 50));	
 		}
-
+*/
 	}
 
 	public void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
@@ -335,12 +336,10 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		// score = b.getScore();
 
 	}
 
 	public void keyTyped(KeyEvent e) {
-
 	}
 
 	public void keyReleased(KeyEvent e) {

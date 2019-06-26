@@ -1,3 +1,4 @@
+//class stores and modifies 2048 game 2D array
 import java.util.ArrayList;
 
 public class Board {

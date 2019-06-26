@@ -1,3 +1,4 @@
+//writes games to games2048.txt file so highscores and boards are saved
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;

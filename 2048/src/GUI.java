@@ -26,7 +26,7 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 	private JLabel title, points_title, points, high_score_label, high_score_title;
 	private JButton newG;
 	private JComboBox size;
-	private Insets insets;
+	//private Insets insets;
 
 	private Board b;
 	private SaveGames save;
@@ -95,9 +95,11 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 
 		
 		//this.setLayout(null);
-		setBackground(Color.GREEN);
+		//setBackground(Color.GREEN);
 		//add(this);
 
+		/*
+		* no labels for now
 		title = new JLabel("2048");
 		Font t = new Font("SansSerif", Font.BOLD, 40);
 		title.setForeground(Color.DARK_GRAY);
@@ -154,6 +156,8 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 
 		//window.setResizable(true);
 		//window.setVisible(true);
+		 * 
+		 */
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -231,12 +235,11 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 
 		g.setColor(new Color(238, 228, 218, 200));
 		if (SIZE < 4)
-			g.fillRect(0, 0, CELLSIZE * 4, CELLSIZE * SIZE + LABEL + insets.top); // paint background color
+			g.fillRect(0, 0, CELLSIZE * 4, CELLSIZE * SIZE + LABEL);// + insets.top); // paint background color
 		else
-			g.fillRect(0, 0, CELLSIZE * SIZE, CELLSIZE * SIZE + LABEL + insets.top); // paint background color
+			g.fillRect(0, 0, CELLSIZE * SIZE, CELLSIZE * SIZE + LABEL);// + insets.top); // paint background color
 		for (int r = 0; r < SIZE; r++) {
 			for (int c = 0; c < SIZE; c++) {
-
 				Color color;
 				int num = b.getBoard()[r][c];
 				String str = num + "";
@@ -280,11 +283,11 @@ public class GUI extends JApplet implements ActionListener, KeyListener {
 			g.setColor(Color.DARK_GRAY);
 			if (SIZE < 4)
 				drawCenteredString(g, "Game Over!",
-						new Rectangle(0, 0, CELLSIZE * 4, CELLSIZE * SIZE + LABEL + insets.top),
-						new Font("SansSerif", Font.BOLD, 50));
+						new Rectangle(0, 0, CELLSIZE * 4, CELLSIZE * SIZE + LABEL),
+						new Font("SansSerif", Font.BOLD, 50)); // removed + insets.top
 			else
 				drawCenteredString(g, "Game Over!",
-						new Rectangle(0, 0, SIZE * CELLSIZE, SIZE * CELLSIZE + 2 * (LABEL + insets.top)),
+						new Rectangle(0, 0, SIZE * CELLSIZE, SIZE * CELLSIZE + 2 * (LABEL)), // removed + insets.top
 						new Font("SansSerif", Font.BOLD, 50));
 		}
 

@@ -10,6 +10,6 @@ public class Applet extends JApplet {
 		add(new GUI());
 	} catch (IOException e) {
 		e.printStackTrace();
-	}  	//Adding a JPanel to this Swing applet
+	}  	
 	}
 }

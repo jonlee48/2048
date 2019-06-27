@@ -58,12 +58,14 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 
 		save.readFiles();
 
+		
 		window = new JFrame("2048");
 		window.pack(); // needed to get insets for title bar height
 		insets = window.getInsets();
 		window.setSize(CELLSIZE * SIZE, CELLSIZE * SIZE + LABEL + insets.top); // includes title bar height
 		window.setLocationRelativeTo(null);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 
 		// upon start, open saved file
 		save.readFiles();
@@ -74,11 +76,13 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 		// set saved high score
 		highScore = save.getSavedHighScore(4);
 
-		window.addKeyListener(this);
+		addKeyListener(this);
 
+		
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);
 		window.getContentPane().add(this);
+		
 
 		title = new JLabel("2048");
 		Font t = new Font("SansSerif", Font.BOLD, 40);
@@ -134,8 +138,10 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 		size.setFocusable(false);
 		add(size);
 
+		
 		window.setResizable(true);
 		window.setVisible(true);
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -199,10 +205,12 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 				e1.printStackTrace();
 			}
 			// change window size
+			
 			if (SIZE >= 4)
 				window.setSize(CELLSIZE * SIZE, CELLSIZE * SIZE + LABEL + insets.top);
 			else
 				window.setSize(CELLSIZE * 4, CELLSIZE * SIZE + LABEL + insets.top);
+	
 			repaint();
 		}
 	}
@@ -325,12 +333,4 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	public static void main(String[] args) {
-		try {
-			new GUI();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
 }

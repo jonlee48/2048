@@ -18,7 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-//Applet version
+//extends JApplet instead of JPanel
 public class GUI extends JApplet implements ActionListener, KeyListener {
 
 	//private JFrame window;

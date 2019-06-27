@@ -10,7 +10,7 @@ Features include:
 - Open Game
 - Change Board Size (2 by 2 to 8 by 8)
 
-To run program you will need the following files
+To run program you on your desktop, you can simply run the 2048.jar file, or import the following files into your java IDE:
 - GUI.java (main class)
 - Board.java
 - SaveGames.java

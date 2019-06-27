@@ -77,7 +77,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 		highScore = save.getSavedHighScore(4);
 
 		addKeyListener(this);
-
+		setFocusable(true);
 		
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);

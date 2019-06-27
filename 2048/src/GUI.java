@@ -140,7 +140,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 
 		
 		window.setResizable(true);
-		window.setVisible(true);
+		window.setVisible(false); //changed from true
 		
 	}
 

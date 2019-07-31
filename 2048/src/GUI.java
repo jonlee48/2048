@@ -30,8 +30,8 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 
 	private int score, highScore;
 	private int SIZE = 4;
-	final private int CELLSIZE = 90;
-	final private int BUFFER = 1; // half buffer distance
+	final private int CELLSIZE = 85;
+	final private int BUFFER = 0; // half buffer distance
 	final private int LABEL = 100;
 
 	final private int[] RED = { 238, 237, 242, 245, 246, 246, 237, 237, 237, 237, 237 };
@@ -61,7 +61,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 		window = new JFrame("2048");
 		window.pack(); // needed to get insets for title bar height
 		insets = window.getInsets();
-		window.setSize(CELLSIZE * SIZE, CELLSIZE * SIZE + LABEL + insets.top); // includes title bar height
+		window.setSize(CELLSIZE * SIZE + insets.left + insets.right, CELLSIZE * SIZE + LABEL + insets.top + insets.bottom); // includes insets
 		window.setLocationRelativeTo(null);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -116,7 +116,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 		newG = new JButton("New Game");
 		newG.setFont(w);
 		newG.setForeground(Color.DARK_GRAY);
-		newG.setBackground(new Color(238, 228, 218, 200));
+		newG.setBackground(new Color(238, 228, 218, 255));
 		newG.setOpaque(true);
 		newG.setFocusPainted(false);
 		newG.setFocusable(true);
@@ -127,7 +127,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 
 		String[] options = { "2x2", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "Clear Games" };
 		size = new JComboBox(options);
-		size.setBackground(new Color(238, 228, 218, 200));
+		size.setBackground(new Color(238, 228, 218, 255));
 		size.setBounds(120, LABEL / 2 + 5, 120, 40);
 		size.setSelectedIndex(2);
 		size.addActionListener(this);
@@ -137,7 +137,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 		window.setResizable(true);
 		window.setVisible(true);
 	}
-
+	
 	public void actionPerformed(ActionEvent e) {
 		// NEW GAME BUTTON
 		if (e.getSource() == newG) {
@@ -199,22 +199,23 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 				e1.printStackTrace();
 			}
 			// change window size
-			if (SIZE >= 4)
-				window.setSize(CELLSIZE * SIZE, CELLSIZE * SIZE + LABEL + insets.top);
-			else
-				window.setSize(CELLSIZE * 4, CELLSIZE * SIZE + LABEL + insets.top);
+			if (SIZE >= 4) {
+			  window.setSize(CELLSIZE * SIZE + insets.left + insets.right, CELLSIZE * SIZE + LABEL + insets.top + insets.bottom);
+			}
+			  else
+			    window.setSize(CELLSIZE * 4 + insets.left + insets.right, CELLSIZE * 4 + LABEL + insets.top + insets.bottom);
 			repaint();
 		}
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
+		System.out.println(window.getSize());
 		g.setColor(new Color(238, 228, 218, 200));
 		if (SIZE < 4)
-			g.fillRect(0, 0, CELLSIZE * 4, CELLSIZE * SIZE + LABEL + insets.top); // paint background color
+			g.fillRect(0, 0, CELLSIZE * 4, CELLSIZE * SIZE + LABEL); // paint background color
 		else
-			g.fillRect(0, 0, CELLSIZE * SIZE, CELLSIZE * SIZE + LABEL + insets.top); // paint background color
+			g.fillRect(0, 0, CELLSIZE * SIZE, CELLSIZE * SIZE + LABEL); // paint background color
 		for (int r = 0; r < SIZE; r++) {
 			for (int c = 0; c < SIZE; c++) {
 
@@ -233,7 +234,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 				int y = r * CELLSIZE + LABEL;
 				g.fillRect(x, y, CELLSIZE, CELLSIZE);
 				g.setColor(Color.BLACK);
-				g.drawRect(x + BUFFER, y + BUFFER, CELLSIZE - 2, CELLSIZE - 2);
+				g.drawRect(x + BUFFER, y + BUFFER, CELLSIZE, CELLSIZE);
 				g.drawRect(x, y, CELLSIZE, CELLSIZE);
 
 				if (num != 0 && num <= 4) // for tiles 2 & 4

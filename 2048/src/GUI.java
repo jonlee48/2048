@@ -203,7 +203,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 			  window.setSize(CELLSIZE * SIZE + insets.left + insets.right, CELLSIZE * SIZE + LABEL + insets.top + insets.bottom);
 			}
 			  else
-			    window.setSize(CELLSIZE * 4 + insets.left + insets.right, CELLSIZE * 4 + LABEL + insets.top + insets.bottom);
+			    window.setSize(CELLSIZE * 4 + insets.left + insets.right, CELLSIZE * SIZE + LABEL + insets.top + insets.bottom);
 			repaint();
 		}
 	}

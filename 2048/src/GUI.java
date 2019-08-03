@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -32,6 +33,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 
 	private int score, highScore;
 	private int SIZE = 4;
+	final private String FONT = "Arial";
 	final private int CELLSIZE = 85;
 	final private int BUFFER = 0; // half buffer distance
 	final private int LABEL = 100;
@@ -83,13 +85,13 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 		window.getContentPane().add(this);
 
 		title = new JLabel("2048");
-		Font t = new Font("SansSerif", Font.BOLD, 40);
+		Font t = new Font(FONT, Font.BOLD, 40);
 		title.setForeground(Color.DARK_GRAY);
 		title.setFont(t);
 		title.setBounds(5, LABEL / 8, 120, 40);
 		add(title);
 
-		Font w = new Font("SansSerif", Font.BOLD, 16);
+		Font w = new Font(FONT, Font.BOLD, 16);
 
 		points_title = new JLabel("Score: ");
 		points_title.setFont(w);
@@ -127,7 +129,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 		add(newG);
 		
 		compAst = new JButton("");
-    String text = "<html><center>Newb<br>Assist</center></html>";
+    String text = "<html><center>N00b<br>Assist</center></html>";
     compAst.setText(text);
 		compAst.setLayout(new BorderLayout());
 		compAst.setFont(w);
@@ -155,6 +157,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+	  
 		// NEW GAME BUTTON
 		if (e.getSource() == newG) {
 			b = new Board(SIZE);
@@ -168,6 +171,15 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 			}
 			repaint();
 		}
+		
+		// NOOB ASSIST BUTTON
+    if (e.getSource() == compAst) {
+      //disable arrow keys (make sure they get activated when New Game is pressed)
+      //CompAssist n00b = 
+      //compAssist(b); //returns b.left(); b.right()....
+      
+    }
+    
 		// COMBO BOX
 		if (e.getSource() == size) {
 			// CLEAR GAMES

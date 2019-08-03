@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -22,6 +23,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 	private JFrame window;
 	private JLabel title, points_title, points, high_score_label, high_score_title;
 	private JButton newG;
+	private JButton compAst;
 	private JComboBox size;
 	private Insets insets;
 
@@ -84,7 +86,7 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 		Font t = new Font("SansSerif", Font.BOLD, 40);
 		title.setForeground(Color.DARK_GRAY);
 		title.setFont(t);
-		title.setBounds(5, LABEL / 4, 120, 40);
+		title.setBounds(5, LABEL / 8, 120, 40);
 		add(title);
 
 		Font w = new Font("SansSerif", Font.BOLD, 16);
@@ -119,11 +121,25 @@ public class GUI extends JPanel implements ActionListener, KeyListener {
 		newG.setBackground(new Color(238, 228, 218, 255));
 		newG.setOpaque(true);
 		newG.setFocusPainted(false);
-		newG.setFocusable(true);
 		newG.setBounds(120, LABEL / 8, 120, 40);
 		newG.addActionListener(this);
 		newG.setFocusable(false);
 		add(newG);
+		
+		compAst = new JButton("");
+    String text = "<html><center>Newb<br>Assist</center></html>";
+    compAst.setText(text);
+		compAst.setLayout(new BorderLayout());
+		compAst.setFont(w);
+		compAst.setForeground(Color.DARK_GRAY);
+		compAst.setBackground(new Color(238, 228, 218, 255));
+		compAst.setOpaque(true);
+		compAst.setFocusPainted(false);
+		compAst.setBounds(5, LABEL / 2 + 5, 110, 40);
+		compAst.addActionListener(this);
+    compAst.setFocusable(false);
+    add(compAst);
+		
 
 		String[] options = { "2x2", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "Clear Games" };
 		size = new JComboBox(options);
